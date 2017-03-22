@@ -11,7 +11,7 @@ sudo -u postgres -E psql -d template1 -c "CREATE EXTENSION IF NOT EXISTS postgis
 
 # Create primary and test databases
 echo "Creating user ${DATABASE_USER}"
-sudo -u postgres -E sh -c 'createuser ${DATABASE_USER}'
+sudo -u postgres -E sh -c 'createuser -s ${DATABASE_USER}'
 sudo -u postgres -E psql -c "ALTER USER \"${DATABASE_USER}\" PASSWORD '${DATABASE_PASSWORD}';"
 
 echo "Creating databases ${DATABASE_NAME} and ${DATABASE_TEST_NAME}"
