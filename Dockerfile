@@ -33,6 +33,6 @@ ENV DATABASE_NAME=application-db \
     DATABASE_HOST=127.0.0.1 \
     DATABASE_TEST_NAME=application-test-db
 
-COPY geodjango-entrypoint.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/geodjango-entrypoint.sh
-ENTRYPOINT ["geodjango-entrypoint.sh"]
+COPY django-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/django-entrypoint.sh
+ENTRYPOINT ["django-entrypoint.sh"]
