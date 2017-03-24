@@ -27,11 +27,11 @@ ENV PYTHONIOENCODING=utf-8
 # https://docs.docker.com/engine/reference/commandline/run/#set-environment-variables--e---env---env-file
 # They will be used to create a default database on start
 
-ENV DATABASE_NAME=application-db \
-    DATABASE_PASSWORD=application-db-password \
-    DATABASE_USER=application-user-user \
-    DATABASE_HOST=127.0.0.1 \
-    DATABASE_TEST_NAME=application-test-db
+ENV DB_NAME=application-db \
+    DB_PASSWORD=application-db-password \
+    DB_USER=application-user-user \
+    DB_HOST=127.0.0.1 \
+    DB_TEST_NAME=application-test-db
 
 COPY django-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/django-entrypoint.sh
