@@ -10,13 +10,13 @@ echo "*** Setting up Postgres database ***"
 sudo -u postgres -E psql -d template1 -c "CREATE EXTENSION IF NOT EXISTS postgis;"
 
 # Create primary and test databases
-echo "Creating user ${DATABASE_USER}"
-sudo -u postgres -E sh -c 'createuser -s ${DATABASE_USER}'
-sudo -u postgres -E psql -c "ALTER USER \"${DATABASE_USER}\" PASSWORD '${DATABASE_PASSWORD}';"
+echo "Creating user ${DB_USER}"
+sudo -u postgres -E sh -c 'createuser -s ${DB_USER}'
+sudo -u postgres -E psql -c "ALTER USER \"${DB_USER}\" PASSWORD '${DB_PASSWORD}';"
 
-echo "Creating databases ${DATABASE_NAME} and ${DATABASE_TEST_NAME}"
-sudo -u postgres -E sh -c 'createdb ${DATABASE_NAME}'
-sudo -u postgres -E sh -c 'createdb ${DATABASE_TEST_NAME}'
+echo "Creating databases ${DB_NAME} and ${DB_TEST_NAME}"
+sudo -u postgres -E sh -c 'createdb ${DB_NAME}'
+sudo -u postgres -E sh -c 'createdb ${DB_TEST_NAME}'
 
 echo "*** Running command passed down to docker ***"
 exec "$@"
