@@ -12,7 +12,7 @@ RUN apt-get update && apt-get -y upgrade && \
     spatialite-bin libsqlite3-mod-spatialite \
     postgresql-client-common libpq-dev \
     postgresql postgresql-contrib postgis \
-    libmemcached11 libmemcachedutil2 libmemcached-dev libz-dev \
+    libmemcached11 libmemcachedutil2 libmemcached-dev libz-dev memcached \
     libproj-dev libfreexl-dev libgdal-dev gdal-bin && \
     python -m pip install pip -U && \
     python3 -m pip install pip -U && \
