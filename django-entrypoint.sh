@@ -1,4 +1,10 @@
 #!/usr/bin/env bash
+
+# =========================
+# Start memcached service
+# =========================
+/etc/init.d/memcached start
+
 # =========================
 # Setup Postgres data base
 # =========================
