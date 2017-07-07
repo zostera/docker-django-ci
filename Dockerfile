@@ -1,7 +1,7 @@
 FROM ubuntu:16.04
 
 MAINTAINER Zostera B.V.
-LABEL version="0.1.0"
+LABEL version="0.1.1"
 # Based on work by Janusz Skonieczny @wooyek
 
 # Install tooling for test debuging and libraries needed by geodjango.
@@ -14,6 +14,7 @@ RUN apt-get update && apt-get -y upgrade && \
     postgresql postgresql-contrib postgis \
     libmemcached11 libmemcachedutil2 libmemcached-dev libz-dev memcached \
     libproj-dev libfreexl-dev libgdal-dev gdal-bin && \
+    apt-get install -y nodejs npm && \
     python -m pip install pip -U && \
     python3 -m pip install pip -U && \
     apt-get clean && \
