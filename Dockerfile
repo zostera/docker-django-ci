@@ -1,7 +1,7 @@
 FROM ubuntu:16.04
 
 MAINTAINER Zostera B.V.
-LABEL version="0.1.1"
+LABEL version="0.1.3"
 # Based on work by Janusz Skonieczny @wooyek
 
 # Install tooling for test debugging and libraries needed by geodjango.
