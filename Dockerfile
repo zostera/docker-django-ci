@@ -1,14 +1,19 @@
 FROM ubuntu:16.04
 
 MAINTAINER Zostera B.V.
-LABEL version="0.1.3"
+LABEL version="0.1.4"
 # Based on work by Janusz Skonieczny @wooyek
+
+# install deadsnakes PPA for python3.6
+RUN apt-get update && apt-get -y install software-properties-common
+RUN add-apt-repository ppa:deadsnakes/ppa
 
 # Install tooling for test debugging and libraries needed by geodjango.
 RUN apt-get update && apt-get -y upgrade && \
     apt-get install -y git unzip wget sudo curl build-essential \
     python python-dev python-pip python-virtualenv \
     python3 python3-dev python3-pip python3-venv \
+    python3.6 \
     spatialite-bin libsqlite3-mod-spatialite \
     postgresql-client-common libpq-dev \
     postgresql postgresql-contrib postgis \
