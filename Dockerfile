@@ -1,20 +1,16 @@
-FROM ubuntu:16.04
+FROM ubuntu:17.10
 
 MAINTAINER Zostera B.V.
-LABEL version="0.1.4"
+LABEL version="0.2.1"
 # Based on work by Janusz Skonieczny @wooyek
 
-# install deadsnakes PPA for python3.6
-RUN apt-get update && apt-get -y install software-properties-common
-RUN add-apt-repository ppa:deadsnakes/ppa
 
 # Install tooling for test debugging and libraries needed by geodjango.
-RUN apt-get update && apt-get -y upgrade && \
-    apt-get install -y git unzip wget sudo curl build-essential \
+RUN apt-get update && apt-get -y upgrade
+
+RUN apt-get install -y git unzip wget sudo curl build-essential \
     python python-dev python-pip python-virtualenv \
-    python3 python3-dev python3-pip python3-venv \
-    python3.6 \
-    spatialite-bin libsqlite3-mod-spatialite \
+    python3.6 python3.6-dev \
     postgresql-client-common libpq-dev \
     postgresql postgresql-contrib postgis \
     libmemcached11 libmemcachedutil2 libmemcached-dev libz-dev memcached \
@@ -23,16 +19,16 @@ RUN apt-get update && apt-get -y upgrade && \
 # install recent version of nodejs
 RUN apt-get -y install python-software-properties && \
     curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - && \
-    apt-get install -y nodejs
+    apt-get -y install nodejs
 
 RUN python -m pip install pip -U && \
-    python3 -m pip install pip -U && \
-    apt-get clean && \
+    apt-get -y clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
-    pip install invoke pathlib tox coverage pylint -U && \
-    pip3 install invoke tox coverage pylint -U
+    pip install -U tox setuptools
 
 ENV PYTHONIOENCODING=utf-8
+ENV LANG=en_US.UTF-8
+RUN locale-gen en_US.UTF-8
 
 # Pass this environment variables through a file
 # https://docs.docker.com/engine/reference/commandline/run/#set-environment-variables--e---env---env-file

@@ -6,15 +6,13 @@
 License: MIT
 
 
-## Debugging/testing out commands in the container:
+##
 
 ```
-(sudo) docker build -t test .
+(sudo) docker build -t zostera/django-ci .
 ...
 ...
 Successfully built 5150f0103068
-# run the container, with -i (interactive)
-(sudo) docker run -dit test
-<container-id>
-sudo docker exec -it <container-id> /bin/bash
+
+(sudo) docker push zostera/django-ci
 ```
