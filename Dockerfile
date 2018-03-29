@@ -1,7 +1,7 @@
 FROM ubuntu:17.10
 
 MAINTAINER Zostera B.V.
-LABEL version="0.2.1"
+LABEL version="0.2.2"
 # Based on work by Janusz Skonieczny @wooyek
 
 
