@@ -1,14 +1,22 @@
 FROM ubuntu:17.10
 
 MAINTAINER Zostera B.V.
-LABEL version="0.2.2"
+LABEL version="0.3.0"
 # Based on work by Janusz Skonieczny @wooyek
 
 
 # Install tooling for test debugging and libraries needed by geodjango.
 RUN apt-get update && apt-get -y upgrade
 
-RUN apt-get install -y git unzip wget sudo curl build-essential \
+RUN apt-get install -y wget software-properties-common
+
+RUN add-apt-repository 'deb http://apt.postgresql.org/pub/repos/apt/ zesty-pgdg main'
+
+RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
+
+RUN apt-get update && apt-get -y upgrade
+
+RUN apt-get install -y git unzip sudo curl build-essential \
     python python-dev python-pip python-virtualenv \
     python3.6 python3.6-dev \
     postgresql-client-common libpq-dev \
