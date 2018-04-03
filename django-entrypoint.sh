@@ -10,10 +10,6 @@
 # =========================
 /etc/init.d/postgresql start
 
-echo "*** Report Postgres version ***"
-sudo -u postgres --version
-sudo -u pg_restore --version
-
 echo "*** Setting up Postgres database ***"
 # First you need to enable postgis for all new databases. This will remove superuser requirement during db initialization
 # http://stackoverflow.com/a/35209186/260480
