@@ -8,7 +8,7 @@ LABEL version="0.2.2"
 # Install tooling for test debugging and libraries needed by geodjango.
 RUN apt-get update && apt-get -y upgrade
 
-RUN apt-get install -y git unzip wget sudo curl build-essential \
+RUN apt-get install -y git unzip wget sudo curl build-essential gettext \
     python python-dev python-pip python-virtualenv \
     python3.6 python3.6-dev \
     postgresql-client-common libpq-dev \
