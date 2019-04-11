@@ -1,16 +1,15 @@
 FROM ubuntu:17.10
 
 MAINTAINER Zostera B.V.
-LABEL version="0.2.2"
+LABEL version="0.2.3"
 # Based on work by Janusz Skonieczny @wooyek
 
-
-# Install tooling for test debugging and libraries needed by geodjango.
 RUN apt-get update && apt-get -y upgrade
 
 RUN apt-get install -y git unzip wget sudo curl build-essential gettext \
     python python-dev python-pip python-virtualenv \
     python3.6 python3.6-dev \
+    python3.7 python3.7-dev \
     postgresql-client-common libpq-dev \
     postgresql postgresql-contrib postgis \
     libmemcached11 libmemcachedutil2 libmemcached-dev libz-dev memcached \

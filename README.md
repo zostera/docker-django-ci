@@ -6,7 +6,7 @@
 License: MIT
 
 
-##
+## Build and upload
 
 ```
 (sudo) docker build -t zostera/django-ci .
