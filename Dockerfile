@@ -1,11 +1,12 @@
-FROM ubuntu:17.10
+FROM ubuntu:18.04
 
 MAINTAINER Zostera B.V.
-LABEL version="0.2.3"
+LABEL version="0.2.4"
 # Based on work by Janusz Skonieczny @wooyek
 
-RUN apt-get update && apt-get -y upgrade
+ENV DEBIAN_FRONTEND=noninteractive
 
+RUN apt-get update && apt-get -y upgrade
 RUN apt-get install -y git unzip wget sudo curl build-essential gettext \
     python python-dev python-pip python-virtualenv \
     python3.6 python3.6-dev \
@@ -16,8 +17,7 @@ RUN apt-get install -y git unzip wget sudo curl build-essential gettext \
     libproj-dev libfreexl-dev libgdal-dev gdal-bin
 
 # install recent version of nodejs
-RUN apt-get -y install python-software-properties && \
-    curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - && \
+RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - && \
     apt-get -y install nodejs
 
 RUN python -m pip install pip -U && \
