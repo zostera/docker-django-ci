@@ -1,7 +1,7 @@
 FROM ubuntu:18.04
 
 MAINTAINER Zostera B.V.
-LABEL version="0.2.4"
+LABEL version="0.2.5"
 # Based on work by Janusz Skonieczny @wooyek
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -42,3 +42,8 @@ ENV DB_NAME=application-db \
 COPY django-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/django-entrypoint.sh
 ENTRYPOINT ["django-entrypoint.sh"]
+
+# install geckodriver needed for selenium tests
+RUN wget https://github.com/mozilla/geckodriver/releases/download/v0.20.1/geckodriver-v0.20.1-linux64.tar.gz \
+    tar -xvzf geckodriver-v0.20.1-linux64.tar.gz \
+    sudo mv geckodriver /usr/local/bin  # TODO needed?
