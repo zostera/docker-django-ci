@@ -1,7 +1,7 @@
 FROM ubuntu:18.04
 
 MAINTAINER Zostera B.V.
-LABEL version="0.2.4"
+LABEL version="0.3.0"
 # Based on work by Janusz Skonieczny @wooyek
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -19,6 +19,12 @@ RUN apt-get install -y git unzip wget sudo curl build-essential gettext \
 # install recent version of nodejs
 RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - && \
     apt-get -y install nodejs
+
+# install geckodriver needed for selenium tests
+RUN wget https://github.com/mozilla/geckodriver/releases/download/v0.24.0/geckodriver-v0.24.0-linux64.tar.gz && \
+    tar -xvzf geckodriver-v0.24.0-linux64.tar.gz && \
+    mv geckodriver /usr/local/bin && \
+    rm -f geckodriver-v0.24.0-linux64.tar.gz
 
 RUN python -m pip install pip -U && \
     apt-get -y clean && \
