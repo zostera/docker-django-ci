@@ -22,13 +22,14 @@ Successfully built 5150f0103068
 ### On mac OS
 
 ```
-brew cask install docker
+brew cask install docker # then in apps click on docker app to get in running (whale icon in top bar)
 
-docker build -t zostera/django-ci .
+# build image
+docker build -t zostera/django-ci .  
 
-docker run -dit zostera/django-ci
+# run image in container and run django-entrypoint.sh + bash command to open bash prompt
+docker run -it zostera/django-ci bash  
 
-docker container ls  # to see temp_name_container
-
-docker exec -it temp_name_container bash
+# stop container
+docker container stop temp_name_container
 ```

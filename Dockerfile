@@ -45,5 +45,6 @@ ENTRYPOINT ["django-entrypoint.sh"]
 
 # install geckodriver needed for selenium tests
 RUN wget https://github.com/mozilla/geckodriver/releases/download/v0.24.0/geckodriver-v0.24.0-linux64.tar.gz
-RUN tar -xvzf geckodriver*
+RUN tar -xvzf geckodriver-v0.24.0-linux64.tar.gz
 RUN sudo mv geckodriver /usr/local/bin
+RUN sudo rm -f geckodriver-v0.24.0-linux64.tar.gz
