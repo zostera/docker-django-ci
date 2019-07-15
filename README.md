@@ -31,5 +31,5 @@ docker build -t zostera/django-ci .
 docker run -it zostera/django-ci bash  
 
 # stop container
-docker container stop temp_name_container
+docker container stop <container-id>
 ```
