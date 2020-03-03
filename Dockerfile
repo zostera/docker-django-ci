@@ -1,23 +1,29 @@
-FROM ubuntu:18.04
+FROM ubuntu:bionic-20200219
 
 MAINTAINER Zostera B.V.
-LABEL version="0.3.1"
+LABEL version="0.3.2"
 # Based on work by Janusz Skonieczny @wooyek
 
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get -y upgrade
+RUN apt-get install -y software-properties-common
+
+# deadsnakes ppa for modern python versions
+RUN add-apt-repository ppa:deadsnakes/ppa && apt-get update
+
 RUN apt-get install -y git unzip wget sudo curl build-essential gettext \
     python python-dev python-pip python-virtualenv \
     python3.6 python3.6-dev \
     python3.7 python3.7-dev \
+    python3.8 python3.8-dev \
     postgresql-client-common libpq-dev \
     postgresql postgresql-contrib postgis \
     libmemcached11 libmemcachedutil2 libmemcached-dev libz-dev memcached \
     libproj-dev libfreexl-dev libgdal-dev gdal-bin
 
 # install recent version of nodejs
-RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - && \
+RUN curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash - && \
     apt-get -y install nodejs
 
 # install firefox and geckodriver needed for selenium tests
