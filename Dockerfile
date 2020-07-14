@@ -1,7 +1,7 @@
 FROM ubuntu:bionic-20200219
 
 MAINTAINER Zostera B.V.
-LABEL version="0.3.2"
+LABEL version="0.3.3"
 # Based on work by Janusz Skonieczny @wooyek
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -23,8 +23,8 @@ RUN apt-get install -y git unzip wget sudo curl build-essential gettext \
     libproj-dev libfreexl-dev libgdal-dev gdal-bin
 
 # install recent version of nodejs
-RUN curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash - && \
-    apt-get -y install nodejs
+RUN curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash - && \
+    apt-get -y install nodejs libxcb-dri3-0 libxss1 libdrm2 libgbm1
 
 # install firefox and geckodriver needed for selenium tests
 RUN wget https://github.com/mozilla/geckodriver/releases/download/v0.24.0/geckodriver-v0.24.0-linux64.tar.gz && \
