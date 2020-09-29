@@ -26,6 +26,9 @@ RUN apt-get install -y git unzip wget sudo curl build-essential gettext \
 RUN curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash - && \
     apt-get -y install nodejs libxcb-dri3-0 libxss1 libdrm2 libgbm1
 
+# install the redis server
+RUN apt-get -y install redis-server
+
 # install firefox and geckodriver needed for selenium tests
 RUN wget https://github.com/mozilla/geckodriver/releases/download/v0.24.0/geckodriver-v0.24.0-linux64.tar.gz && \
     tar -xvzf geckodriver-v0.24.0-linux64.tar.gz && \
