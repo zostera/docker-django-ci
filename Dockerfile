@@ -1,7 +1,7 @@
 FROM ubuntu:bionic-20200219
 
 MAINTAINER Zostera B.V.
-LABEL version="0.3.3"
+LABEL version="0.3.4"
 # Based on work by Janusz Skonieczny @wooyek
 
 ENV DEBIAN_FRONTEND=noninteractive
