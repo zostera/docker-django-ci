@@ -1,7 +1,7 @@
 FROM ubuntu:bionic-20200219
 
 MAINTAINER Zostera B.V.
-LABEL version="0.3.3"
+LABEL version="0.3.4"
 # Based on work by Janusz Skonieczny @wooyek
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -25,6 +25,10 @@ RUN apt-get install -y git unzip wget sudo curl build-essential gettext \
 # install recent version of nodejs
 RUN curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash - && \
     apt-get -y install nodejs libxcb-dri3-0 libxss1 libdrm2 libgbm1
+
+# install the redis server, bind to ipv4 (or it will not start)
+RUN apt-get -y install redis-server && \
+    sed -i "s/^bind 127.0.0.1.*/bind 127.0.0.1/g" /etc/redis/redis.conf
 
 # install firefox and geckodriver needed for selenium tests
 RUN wget https://github.com/mozilla/geckodriver/releases/download/v0.24.0/geckodriver-v0.24.0-linux64.tar.gz && \

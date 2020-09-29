@@ -6,6 +6,11 @@
 /etc/init.d/memcached start
 
 # =========================
+# Start redis service
+# =========================
+/etc/init.d/redis-server start
+
+# =========================
 # Setup Postgres data base
 # =========================
 /etc/init.d/postgresql start
