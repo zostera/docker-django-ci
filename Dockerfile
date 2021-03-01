@@ -10,7 +10,7 @@ RUN apt-get update && apt-get -y upgrade
 RUN apt-get install -y software-properties-common
 
 # PostgreSQL apt server for newer PostgreSQL and PostGIS versions
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8
+RUN APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8
 RUN add-apt-repository "deb http://apt.postgresql.org/pub/repos/apt/ bionic-pgdg main"
 
 # deadsnakes ppa for modern python versions
