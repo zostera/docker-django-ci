@@ -9,6 +9,10 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get -y upgrade
 RUN apt-get install -y software-properties-common
 
+# PostgreSQL apt server for newer PostgreSQL and PostGIS versions
+RUN APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8
+RUN add-apt-repository "deb http://apt.postgresql.org/pub/repos/apt/ bionic-pgdg main"
+
 # deadsnakes ppa for modern python versions
 RUN add-apt-repository ppa:deadsnakes/ppa && apt-get update
 
@@ -19,7 +23,7 @@ RUN apt-get install -y git unzip wget sudo curl build-essential gettext \
     python3.8 python3.8-dev \
     python3.9 python3.9-dev \
     postgresql-client-common libpq-dev \
-    postgresql postgresql-contrib postgis \
+    postgresql-12 postgresql-12-postgis-3 \
     libmemcached11 libmemcachedutil2 libmemcached-dev libz-dev memcached \
     libproj-dev libfreexl-dev libgdal-dev gdal-bin \
     ffmpeg
