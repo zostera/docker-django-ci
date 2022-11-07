@@ -1,6 +1,6 @@
 FROM ubuntu:focal-20221019
 
-LABEL version="0.3.5" org.opencontainers.image.authors="Zostera B.V."
+LABEL version="0.3.6" org.opencontainers.image.authors="Zostera B.V."
 # Based on work by Janusz Skonieczny @wooyek
 
 ENV DEBIAN_FRONTEND=noninteractive
