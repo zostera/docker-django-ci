@@ -20,10 +20,8 @@ RUN apt-get install -y git unzip wget sudo curl build-essential gettext \
     postgresql-12 postgresql-12-postgis-3 \
     libmemcached11 libmemcachedutil2 libmemcached-dev libz-dev memcached \
     libproj-dev libfreexl-dev libgdal-dev gdal-bin \
-    ffmpeg
-
-# Various python versions
-RUN apt-get install -y python3 python3-pip \
+    ffmpeg \
+    python3 python3-pip \
     python3.8 python3.8-dev \
     python3.9 python3.9-dev \
     python3.10 python3.10-dev \
