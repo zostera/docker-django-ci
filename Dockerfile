@@ -1,4 +1,4 @@
-FROM ubuntu:focal-20221019
+FROM ubuntu:focal
 
 LABEL version="0.3.6" org.opencontainers.image.authors="Zostera B.V."
 # Based on work by Janusz Skonieczny @wooyek
@@ -8,48 +8,41 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get -y upgrade
 RUN apt-get install -y software-properties-common
 
-# PostgreSQL apt server for newer PostgreSQL and PostGIS versions
-RUN APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8
-RUN add-apt-repository "deb http://apt.postgresql.org/pub/repos/apt/ focal-pgdg main"
+RUN set -e \
+    && apt-get update -y \
+    && apt-get install -y curl gnupg ca-certificates software-properties-common build-essential git netcat \
+    && add-apt-repository ppa:deadsnakes/ppa \
+    # Add nodesource to install a recent version of nodejs
+    && mkdir -p /etc/apt/keyrings \
+    && curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg \
+    && echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_21.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list \
+    # Add PostgreSQL repository
+    && curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
+    && echo "deb http://apt.postgresql.org/pub/repos/apt focal-pgdg main" | tee /etc/apt/sources.list.d/pgdg.list \
+    && apt-get update -y \
+    && apt-get install -y nodejs \
+    gettext binutils libproj-dev gdal-bin libgdal-dev \
+    python3.11 python3.11-dev python3.11-distutils python3.11-venv \
+    python3.12 python3.12-dev python3.12-venv \
+    exif ffmpeg libmemcached11 libmemcachedutil2 libmemcached-dev libz-dev \
+    libpq-dev gettext sassc libfreetype6 libfreetype6-dev postgresql-client-15 \
+    redis-server \
+    && rm -rf /var/lib/apt/lists/* \
+    # Make the python executable work for django commands that use `/usr/bin/env python`
+    && ln -s /usr/bin/python3.11 /usr/local/bin/python \
+    && ln -s /usr/bin/python3.11 /usr/local/bin/python3 \
+    && git config --global --add safe.directory /home/app \
+    # Bind the redis server to ipv4 (or it will not start)
+    && sed -i "s/^bind 127.0.0.1.*/bind 127.0.0.1/g" /etc/redis/redis.conf
 
-# deadsnakes ppa for modern python versions
-RUN add-apt-repository ppa:deadsnakes/ppa && apt-get update
+RUN python3.11 -m ensurepip && python3.11 -m pip install --upgrade pip
 
-RUN apt-get install -y git unzip wget sudo curl build-essential gettext \
-    postgresql-client-common libpq-dev \
-    postgresql-12 postgresql-12-postgis-3 \
-    libmemcached11 libmemcachedutil2 libmemcached-dev libz-dev memcached \
-    libproj-dev libfreexl-dev libgdal-dev gdal-bin \
-    ffmpeg \
-    python3 python3-pip \
-    python3.8 python3.8-dev \
-    python3.9 python3.9-dev \
-    python3.10 python3.10-dev \
-    python3.11 python3.11-dev
-
-# install recent version of nodejs
-RUN curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash - && \
-    apt-get -y install nodejs libxcb-dri3-0 libxss1 libdrm2 libgbm1
-
-# install the redis server, bind to ipv4 (or it will not start)
-RUN apt-get -y install redis-server && \
-    sed -i "s/^bind 127.0.0.1.*/bind 127.0.0.1/g" /etc/redis/redis.conf
-
-# install firefox and geckodriver needed for selenium tests
-RUN wget https://github.com/mozilla/geckodriver/releases/download/v0.24.0/geckodriver-v0.24.0-linux64.tar.gz && \
-    tar -xvzf geckodriver-v0.24.0-linux64.tar.gz && \
-    mv geckodriver /usr/local/bin && \
-    rm -f geckodriver-v0.24.0-linux64.tar.gz && \
-    sudo apt-get -y install firefox
-
-RUN python3 -m pip install pip -U && \
-    apt-get -y clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
-    python3 -m pip install -U tox setuptools
+# Silence warnings like 'fatal: detected dubious ownership in repository at '/github/workspace'
+RUN git config --system --add safe.directory '*' && \
+    git config --system status.hints false &
 
 ENV PYTHONIOENCODING=utf-8
 ENV LANG=en_US.UTF-8
-RUN locale-gen en_US.UTF-8
 
 # Pass this environment variables through a file
 # https://docs.docker.com/engine/reference/commandline/run/#set-environment-variables--e---env---env-file
