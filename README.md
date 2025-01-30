@@ -11,7 +11,6 @@ License: MIT
 ```
 docker build -t zostera/django-ci .
 ...
-...
 Successfully built 5150f0103068
 
 docker push zostera/django-ci
@@ -20,9 +19,8 @@ docker push zostera/django-ci
 On M1 macs:
 
 ```
-docker buildx create --use
-
-docker buildx build --platform linux/amd64,linux/arm64 --push -t zostera/django-ci .
+docker build --platform linux/amd64 --platform linux/arm64 -t zostera/django-ci .
+docker push zostera/django-ci
 ```
 
 ## Notes about local setup and testing
